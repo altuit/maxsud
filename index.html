@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#070a13">
+    <title>Telegram Services - WebApp</title>
+
+    <!-- Telegram WebApp rasmiy kutubxonasi -->
+    <script type="text/javascript" nonce="9e18cdf673964c81adb0d1548af" src="//local.adguard.org?ts=1790510790350&amp;type=content-script&amp;dmn=chatgpt.com&amp;url=https%3A%2F%2Fchatgpt.com%2Fbackend-api%2Festuary%2Fcontent%3Fid%3Dfile_0000000044ec8210b8823bdc31afe3de%26ts%3D497364%26p%3Dfs%26cid%3D1%26sig%3D5d83e5eeccffbed34c00bf8d173e42a07980bcbf0f9380d2be5af555253ff45f%26v%3D0&amp;app=chrome.exe&amp;css=2&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1"></script><script type="text/javascript" nonce="9e18cdf673964c81adb0d1548af" src="//local.adguard.org?ts=1790510790350&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script><script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #070a13 0%, #020408 100%);
+            color: #fff;
+            margin: 0;
+            padding: 16px;
+            overflow-x: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+            min-height: 100vh;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
+            padding: 4px;
+        }
+        .bot-title {
+            font-size: 22px;
+            font-weight: 800;
+            background: linear-gradient(45deg, #00b0ff, #aa00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: .5px;
+        }
+        .star {
+            width: 46px;
+            height: 46px;
+            display: grid;
+            place-items: center;
+            font-size: 32px;
+            animation: pulse 1.4s ease-in-out infinite;
+            filter: drop-shadow(0 0 12px rgba(255, 215, 0, .65));
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.15) rotate(8deg); }
+        }
+        .balance-card {
+            background: rgba(18, 24, 38, .6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 24px;
+            padding: 22px;
+            box-shadow: 0 12px 40px rgba(0,0,0,.5), inset 0 0 15px rgba(0,176,255,.08);
+            margin-bottom: 24px;
+        }
+        .balance-label {
+            font-size: 11px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+        .balance-amount {
+            font-size: 34px;
+            font-weight: 900;
+            margin: 10px 0 18px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .balance-amount span {
+            font-size: 16px;
+            color: #00b0ff;
+            font-weight: 600;
+        }
+        .btn-deposit {
+            background: linear-gradient(90deg, #0088cc 0%, #00b0ff 100%);
+            border: none;
+            color: white;
+            padding: 14px;
+            width: 100%;
+            border-radius: 16px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0,176,255,.25);
+            transition: all .2s ease;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+        .btn-deposit:active { transform: scale(.97); opacity: .9; }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 26px;
+        }
+        .service-item {
+            background: rgba(22,30,49,.4);
+            border: 1px solid rgba(255,255,255,.04);
+            border-radius: 18px;
+            padding: 14px 4px;
+            text-align: center;
+            cursor: pointer;
+            transition: all .2s ease;
+            text-decoration: none;
+            color: white;
+        }
+        .service-item:active {
+            background: rgba(0,176,255,.1);
+            border-color: #00b0ff;
+            transform: scale(.95);
+        }
+        .service-icon { font-size: 26px; margin-bottom: 6px; display: block; }
+        .service-name { font-size: 11px; color: #94a3b8; font-weight: 600; }
+
+        .input-group {
+            background: rgba(10,15,28,.7);
+            border: 1px solid rgba(255,255,255,.06);
+            border-radius: 18px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+        .input-label {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 10px;
+            display: block;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+        .username-input-wrapper {
+            display: flex;
+            align-items: center;
+            background: rgba(22,30,49,.5);
+            border: 1px solid rgba(255,255,255,.04);
+            border-radius: 12px;
+            padding: 12px;
+        }
+        .username-input-wrapper span {
+            color: #00b0ff;
+            font-weight: 700;
+            margin-right: 4px;
+            font-size: 16px;
+        }
+        .username-input {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 15px;
+            width: 100%;
+            outline: none;
+        }
+        .username-input::placeholder { color: #64748b; }
+
+        .section-title {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding-left: 4px;
+        }
+        .package-card {
+            background: rgba(22,30,49,.35);
+            border: 1px solid rgba(255,255,255,.05);
+            border-radius: 18px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+        .package-card:active {
+            border-color: #aa00ff;
+            background: rgba(170,0,255,.06);
+            transform: scale(.98);
+        }
+        .package-left { display: flex; align-items: center; gap: 12px; }
+        .package-title { font-size: 15px; font-weight: 600; color: #f1f5f9; }
+        .package-price { font-size: 15px; font-weight: 700; color: #00b0ff; }
+
+        @media (max-width: 360px) {
+            .services-grid { gap: 7px; }
+            .service-name { font-size: 10px; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="bot-title">Telegram Services</div>
+        <div class="star">⭐</div>
+    </div>
+
+    <div class="balance-card">
+        <div class="balance-label">Hisob balansi</div>
+        <div class="balance-amount">875 <span>UZS</span></div>
+        <button class="btn-deposit" type="button" onclick="deposit()">+ Hisobni to'ldirish</button>
+    </div>
+
+    <div class="services-grid">
+        <div class="service-item" onclick="serviceClick('Stars')">
+            <span class="service-icon">⭐️</span>
+            <span class="service-name">Stars</span>
+        </div>
+        <div class="service-item" onclick="serviceClick('Premium')">
+            <span class="service-icon">💎</span>
+            <span class="service-name">Premium</span>
+        </div>
+        <div class="service-item" onclick="serviceClick('Gift')">
+            <span class="service-icon">🎁</span>
+            <span class="service-name">Gift</span>
+        </div>
+        <div class="service-item" onclick="serviceClick('Raqam')">
+            <span class="service-icon">📱</span>
+            <span class="service-name">Raqam</span>
+        </div>
+    </div>
+
+    <div class="input-group">
+        <span class="input-label">Kimga? Telegram username</span>
+        <div class="username-input-wrapper">
+            <span>@</span>
+            <input type="text" class="username-input" placeholder="username" id="tg-user" autocomplete="off">
+        </div>
+    </div>
+
+    <div class="section-title">Tezkor to'plamlar — eng ommaboplari</div>
+
+    <div class="package-card" onclick="buyPackage('50 Stars', '11 000 UZS')">
+        <div class="package-left">
+            <span>⭐️</span>
+            <div class="package-title">50 Stars</div>
+        </div>
+        <div class="package-price">11 000 UZS</div>
+    </div>
+
+    <div class="package-card" onclick="buyPackage('100 Stars', '22 000 UZS')">
+        <div class="package-left">
+            <span>⭐️</span>
+            <div class="package-title">100 Stars</div>
+        </div>
+        <div class="package-price">22 000 UZS</div>
+    </div>
+
+    <div class="package-card" onclick="buyPackage('3 Oylik Premium', '55 000 UZS')">
+        <div class="package-left">
+            <span>💎</span>
+            <div class="package-title">3 Oylik Premium</div>
+        </div>
+        <div class="package-price">55 000 UZS</div>
+    </div>
+
+    <script>
+        // Telegram WebApp mavjud bo'lsa ishlaydi; oddiy brauzerda ham xatolik bermaydi.
+        const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
+
+        if (tg) {
+            tg.ready();
+            tg.expand();
+        }
+
+        function getUsername() {
+            return document.getElementById('tg-user').value.trim() || 'Ko\'rsatilmagan';
+        }
+
+        function showMessage(message) {
+            if (tg && typeof tg.showPopup === 'function') {
+                tg.showPopup({
+                    title: 'Telegram Services',
+                    message: message,
+                    buttons: [{type: 'ok'}]
+                });
+            } else {
+                alert(message);
+            }
+        }
+
+        function deposit() {
+            showMessage('Hisobni to\'ldirish funksiyasi botning backend/to\'lov tizimiga ulanishi kerak.');
+        }
+
+        function serviceClick(name) {
+            showMessage(name + ' xizmati tanlandi.\nUsername: @' + getUsername());
+        }
+
+        function buyPackage(name, price) {
+            showMessage(
+                'Tanlangan paket: ' + name +
+                '\nNarxi: ' + price +
+                '\nUsername: @' + getUsername()
+            );
+
+            // Keyinchalik shu yerga botga ma'lumot yuborish kodini qo'shish mumkin:
+            // tg.sendData(JSON.stringify({package: name, price: price, username: getUsername()}));
+        }
+    </script>
+</body>
+</html>
