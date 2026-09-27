@@ -5,10 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#070a13">
     <title>Telegram Services - WebApp</title>
-
-    <!-- Telegram WebApp rasmiy toza kutubxonasi -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
+    <script src="https://telegram.org"></script>
     <style>
         * { box-sizing: border-box; }
         body {
@@ -22,264 +19,75 @@
             -webkit-user-select: none;
             min-height: 100vh;
         }
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 22px;
-            padding: 4px;
-        }
-        .bot-title {
-            font-size: 22px;
-            font-weight: 800;
-            background: linear-gradient(45deg, #00b0ff, #aa00ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: .5px;
-        }
-        .star {
-            width: 46px;
-            height: 46px;
-            display: grid;
-            place-items: center;
-            font-size: 32px;
-            animation: pulse 1.4s ease-in-out infinite;
-            filter: drop-shadow(0 0 12px rgba(255, 215, 0, .65));
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.15) rotate(8deg); }
-        }
-        .balance-card {
-            background: rgba(18, 24, 38, .6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,.07);
-            border-radius: 24px;
-            padding: 22px;
-            box-shadow: 0 12px 40px rgba(0,0,0,.5), inset 0 0 15px rgba(0,176,255,.08);
-            margin-bottom: 24px;
-        }
-        .balance-label {
-            font-size: 11px;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 700;
-        }
-        .balance-amount {
-            font-size: 34px;
-            font-weight: 900;
-            margin: 10px 0 18px;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .balance-amount span {
-            font-size: 16px;
-            color: #00b0ff;
-            font-weight: 600;
-        }
-        .btn-deposit {
-            background: linear-gradient(90deg, #0088cc 0%, #00b0ff 100%);
-            border: none;
-            color: white;
-            padding: 14px;
-            width: 100%;
-            border-radius: 16px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(0,176,255,.25);
-            transition: all .2s ease;
-            text-align: center;
-            text-decoration: none;
-            display: block;
-        }
+        .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; padding: 4px; }
+        .bot-title { font-size: 22px; font-weight: 800; background: linear-gradient(45deg, #00b0ff, #aa00ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: .5px; }
+        .star { width: 46px; height: 46px; display: grid; place-items: center; font-size: 32px; animation: pulse 1.4s ease-in-out infinite; filter: drop-shadow(0 0 12px rgba(255, 215, 0, .65)); }
+        @keyframes pulse { 0%, 100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.15) rotate(8deg); } }
+        .balance-card { background: rgba(18, 24, 38, .6); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,.07); border-radius: 24px; padding: 22px; box-shadow: 0 12px 40px rgba(0,0,0,.5), inset 0 0 15px rgba(0,176,255,.08); margin-bottom: 24px; }
+        .balance-label { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
+        .balance-amount { font-size: 34px; font-weight: 900; margin: 10px 0 18px; color: #fff; display: flex; align-items: center; gap: 6px; }
+        .btn-deposit { background: linear-gradient(90deg, #0088cc 0%, #00b0ff 100%); border: none; color: white; padding: 14px; width: 100%; border-radius: 16px; font-size: 15px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 20px rgba(0,176,255,.25); transition: all .2s ease; text-align: center; text-decoration: none; display: block; }
         .btn-deposit:active { transform: scale(.97); opacity: .9; }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-bottom: 26px;
-        }
-        .service-item {
-            background: rgba(22,30,49,.4);
-            border: 1px solid rgba(255,255,255,.04);
-            border-radius: 18px;
-            padding: 14px 4px;
-            text-align: center;
-            cursor: pointer;
-            transition: all .2s ease;
-            text-decoration: none;
-            color: white;
-        }
-        .service-item:active {
-            background: rgba(0,176,255,.1);
-            border-color: #00b0ff;
-            transform: scale(.95);
-        }
+        .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 26px; }
+        .service-item { background: rgba(22,30,49,.4); border: 1px solid rgba(255,255,255,.04); border-radius: 18px; padding: 14px 4px; text-align: center; cursor: pointer; transition: all .2s ease; text-decoration: none; color: white; }
+        .service-item:active { background: rgba(0,176,255,.1); border-color: #00b0ff; transform: scale(.95); }
         .service-icon { font-size: 26px; margin-bottom: 6px; display: block; }
         .service-name { font-size: 11px; color: #94a3b8; font-weight: 600; }
-
-        .input-group {
-            background: rgba(10,15,28,.7);
-            border: 1px solid rgba(255,255,255,.06);
-            border-radius: 18px;
-            padding: 16px;
-            margin-bottom: 20px;
-        }
-        .input-label {
-            font-size: 12px;
-            color: #64748b;
-            margin-bottom: 10px;
-            display: block;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: .5px;
-        }
-        .username-input-wrapper {
-            display: flex;
-            align-items: center;
-            background: rgba(22,30,49,.5);
-            border: 1px solid rgba(255,255,255,.04);
-            border-radius: 12px;
-            padding: 12px;
-        }
-        .username-input-wrapper span {
-            color: #00b0ff;
-            font-weight: 700;
-            margin-right: 4px;
-            font-size: 16px;
-        }
-        .username-input {
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 15px;
-            width: 100%;
-            outline: none;
-        }
+        .input-group { background: rgba(10,15,28,.7); border: 1px solid rgba(255,255,255,.06); border-radius: 18px; padding: 16px; margin-bottom: 20px; }
+        .input-label { font-size: 12px; color: #64748b; margin-bottom: 10px; display: block; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; }
+        .username-input-wrapper { display: flex; align-items: center; background: rgba(22,30,49,.5); border: 1px solid rgba(255,255,255,.04); border-radius: 12px; padding: 12px; }
+        .username-input-wrapper span { color: #00b0ff; font-weight: 700; margin-right: 4px; font-size: 16px; }
+        .username-input { background: transparent; border: none; color: white; font-size: 15px; width: 100%; outline: none; }
         .username-input::placeholder { color: #64748b; }
-
-        .section-title {
-            font-size: 13px;
-            color: #64748b;
-            margin-bottom: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding-left: 4px;
-        }
-        .package-card {
-            background: rgba(22,30,49,.35);
-            border: 1px solid rgba(255,255,255,.05);
-            border-radius: 18px;
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            cursor: pointer;
-            transition: all .2s ease;
-        }
-        .package-card:active {
-            border-color: #aa00ff;
-            background: rgba(170,0,255,.06);
-            transform: scale(.98);
-        }
+        .section-title { font-size: 13px; color: #64748b; margin-bottom: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding-left: 4px; }
+        .package-card { background: rgba(22,30,49,.35); border: 1px solid rgba(255,255,255,.05); border-radius: 18px; padding: 16px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; cursor: pointer; transition: all .2s ease; }
+        .package-card:active { border-color: #aa00ff; background: rgba(170,0,255,.06); transform: scale(.98); }
         .package-left { display: flex; align-items: center; gap: 12px; }
         .package-title { font-size: 15px; font-weight: 600; color: #f1f5f9; }
         .package-price { font-size: 15px; font-weight: 700; color: #00b0ff; }
-
-        @media (max-width: 360px) {
-            .services-grid { gap: 7px; }
-            .service-name { font-size: 10px; }
-        }
+        @media (max-width: 360px) { .services-grid { gap: 7px; } .service-name { font-size: 10px; } }
     </style>
 </head>
-
 <body>
     <div class="header">
         <div class="bot-title">Telegram Services</div>
         <div class="star">⭐</div>
     </div>
-
     <div class="balance-card">
         <div class="balance-label">Hisob balansi</div>
-        <div class="balance-amount">875 <span>UZS</span></div>
+        <div class="balance-amount"><span id="balance-num">0</span> <span style="font-size:16px; color:#00b0ff;">UZS</span></div>
         <button class="btn-deposit" type="button" onclick="deposit()">+ Hisobni to'ldirish</button>
     </div>
-
     <div class="services-grid">
-        <div class="service-item" onclick="serviceClick('Stars')">
-            <span class="service-icon">⭐️</span>
-            <span class="service-name">Stars</span>
-        </div>
-        <div class="service-item" onclick="serviceClick('Premium')">
-            <span class="service-icon">💎</span>
-            <span class="service-name">Premium</span>
-        </div>
-        <div class="service-item" onclick="serviceClick('Gift')">
-            <span class="service-icon">🎁</span>
-            <span class="service-name">Gift</span>
-        </div>
-        <div class="service-item" onclick="serviceClick('Raqam')">
-            <span class="service-icon">📱</span>
-            <span class="service-name">Raqam</span>
-        </div>
+        <div class="service-item" onclick="serviceClick('Stars')"><span class="service-icon">⭐️</span><span class="service-name">Stars</span></div>
+        <div class="service-item" onclick="serviceClick('Premium')"><span class="service-icon">💎</span><span class="service-name">Premium</span></div>
+        <div class="service-item" onclick="serviceClick('Gift')"><span class="service-icon">🎁</span><span class="service-name">Gift</span></div>
+        <div class="service-item" onclick="serviceClick('Raqam')"><span class="service-icon">📱</span><span class="service-name">Raqam</span></div>
     </div>
-
     <div class="input-group">
         <span class="input-label">Kimga? Telegram username</span>
-        <div class="username-input-wrapper">
-            <span>@</span>
-            <input type="text" class="username-input" placeholder="username" id="tg-user">
-        </div>
+        <div class="username-input-wrapper"><span>@</span><input type="text" class="username-input" placeholder="username" id="tg-user"></div>
     </div>
-
     <div class="section-title">Tezkor to'plamlar — eng ommaboplari</div>
-    <div class="package-card" onclick="buyPackage('50 Stars', '11 000 UZS')">
-        <div class="package-left">
-            <span>⭐</span>
-            <div class="package-title">50 Stars</div>
-        </div>
-        <div class="package-price">11 000 UZS</div>
-    </div>
-    <div class="package-card" onclick="buyPackage('100 Stars', '22 000 UZS')">
-        <div class="package-left">
-            <span>⭐</span>
-            <div class="package-title">100 Stars</div>
-        </div>
-        <div class="package-price">22 000 UZS</div>
-    </div>
-    <div class="package-card" onclick="buyPackage('3 Oylik Premium', '55 000 UZS')">
-        <div class="package-left">
-            <span>💎</span>
-            <div class="package-title">3 Oylik Premium</div>
-        </div>
-        <div class="package-price">55 000 UZS</div>
-    </div>
-
+    <div class="package-card" onclick="buyPackage('50 Stars', 11000)"><div class="package-left"><span>⭐</span><div class="package-title">50 Stars</div></div><div class="package-price">11 000 UZS</div></div>
+    <div class="package-card" onclick="buyPackage('100 Stars', 22000)"><div class="package-left"><span>⭐</span><div class="package-title">100 Stars</div></div><div class="package-price">22 000 UZS</div></div>
+    <div class="package-card" onclick="buyPackage('3 Oylik Premium', 55000)"><div class="package-left"><span>💎</span><div class="package-title">3 Oylik Premium</div></div><div class="package-price">55 000 UZS</div></div>
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
         tg.ready();
-
-        function deposit() {
-            tg.showPopup({ title: "Hisob to'ldirish", message: "To'lov tizimi tez orada ishga tushadi!" });
-        }
-        function serviceClick(name) {
-            tg.showPopup({ title: name, message: name + " bo'limi tanlandi." });
-        }
-        function buyPackage(name, price) {
-            const user = document.getElementById('tg-user').value || 'Ko\'rsatilmagan';
-            tg.showPopup({
-                title: "Buyurtma",
-                message: `Paket: ${name}\nNarxi: ${price}\nFoydalanuvchi: @${user}\n\nSotib olishni tasdiqlaysizmi?`
-            });
+        let userBalance = 0; 
+        document.getElementById('balance-num').innerText = userBalance.toLocaleString();
+        function deposit() { tg.showPopup({ title: "Hisobni to'ldirish", message: "To'lov tizimi tez orada ishga tushadi! Ungacha hisobni to'ldirish uchun @a_maxsud ga yozing." }); }
+        function serviceClick(name) { tg.showPopup({ title: name, message: name + " bo'limi tez orada ishga tushadi." }); }
+        function buyPackage(name, priceAmount) {
+            const username = document.getElementById('tg-user').value.trim();
+            if (!username) { tg.showPopup({ title: "Xatolik", message: "Iltimos, avval Telegram username-ingizni kiriting!" }); return; }
+            if (userBalance < priceAmount) {
+                tg.showPopup({ title: "Mablag' yetarli emas", message: "Siz tanlagan to'plam narxi: " + priceAmount.toLocaleString() + " UZS.\nSizning balansingiz: " + userBalance.toLocaleString() + " UZS.\n\nIltimos, avval hisobingizni to'ldiring!" });
+            } else {
+                tg.showPopup({ title: "Buyurtmani tasdiqlash", message: "Paket: " + name + "\nNarxi: " + priceAmount.toLocaleString() + " UZS\nKimga: @" + username + "\n\nXaridni tasdiqlaysizmi?" });
+            }
         }
     </script>
 </body>
